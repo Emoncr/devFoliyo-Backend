@@ -16,6 +16,9 @@ export const env = {
   port: asInt(process.env.PORT, 3000),
   corsOrigin: process.env.CORS_ORIGIN ?? '*',
   mongoUri: process.env.MONGO_URI ?? 'mongodb://localhost:27017',
+  jwtSecret: process.env.JWT_SECRET ?? 'change-me',
+  jwtExpires: process.env.JWT_EXPIRES ?? '1h',
+  saltRounds: asInt(process.env.SALT_ROUNDS, 10),
 };
 
 export const isProd = env.nodeEnv === 'production';
