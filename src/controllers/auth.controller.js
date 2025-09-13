@@ -45,6 +45,12 @@ export async function login(req, res, next) {
     const userResponse = userWithPassword.toJSON();
     delete userResponse.password;
 
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+    });
+
     return ResponseHandler.created(res, { user: userResponse, token }, 'Login successful');
   } catch (err) {
     next(err);
