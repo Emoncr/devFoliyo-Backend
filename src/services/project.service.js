@@ -1,4 +1,4 @@
-import Project from '../models/project.Model.js';
+import Project from '../models/project.model.js';
 
 export const createProjectService = (data) => {
   const project = new Project(data);
