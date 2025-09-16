@@ -1,5 +1,6 @@
 import Project from '../models/project.model.js';
 
+// Create project
 export const createProjectService = (data) => {
   const project = new Project(data);
   return project.save();
