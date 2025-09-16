@@ -1,8 +1,8 @@
-import Project from '../models/project.model.js';
+import projectModel from '../models/projectModel.model.js';
 
 // Create project
 export const createProjectService = (data) => {
-  const project = new Project(data);
+  const project = new projectModel(data);
   return project.save();
 };
 
@@ -38,12 +38,13 @@ export const getAllProjectService = async (query = {}) => {
 
   // Fetch data
   const [projects, total] = await Promise.all([
-    Project.find(finalQuery)
+    projectModel
+      .find(finalQuery)
       .sort(sortOptions)
       .skip((pageNum - 1) * limitNum)
       .limit(limitNum)
       .exec(),
-    Project.countDocuments(finalQuery),
+    projectModel.countDocuments(finalQuery),
   ]);
 
   return {
@@ -59,15 +60,15 @@ export const getAllProjectService = async (query = {}) => {
 
 // Get project by ID
 export const getProjectByIdService = async (id) => {
-  return Project.findById(id).exec();
+  return projectModel.findById(id).exec();
 };
 
 // Update project by ID
 export const updateProjectService = async (id, updateData) => {
-  return Project.findByIdAndUpdate(id, updateData, { new: true }).exec();
+  return projectModel.findByIdAndUpdate(id, updateData, { new: true }).exec();
 };
 
 // Delete project by ID
 export const deleteProjectService = async (id) => {
-  return Project.findByIdAndDelete(id).exec();
+  return projectModel.findByIdAndDelete(id).exec();
 };
