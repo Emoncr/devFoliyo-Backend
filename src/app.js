@@ -10,9 +10,22 @@ import routes from './routes/index.js';
 const app = express();
 
 app.set('trust proxy', true);
-app.use(cors({ origin: env.corsOrigin }));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3000',
+      'https://devfoliyo.vercel.app',
+      'https://devfoliyo.vercel.app',
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }),
+);
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
+
+
 
 app.use('/api/health', (req, res) => {
   return res.status(200).json({ message: 'Server is healthy' });
