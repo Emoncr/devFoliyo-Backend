@@ -1,6 +1,5 @@
 import Project from '../models/project.model.js';
 
-
 export const createProjectService = (data) => {
   const project = new Project(data);
   return project.save();
@@ -24,8 +23,13 @@ export const getAllProjectService = async (query = {}) => {
   const searchCondition = search
     ? {
         $or: [
-          { name: { $regex: search, $options: 'i' } },
-          { description: { $regex: search, $options: 'i' } },
+          { title: { $regex: search, $options: 'i' } },
+          { shortDescription: { $regex: search, $options: 'i' } },
+          { longDescription: { $regex: search, $options: 'i' } },
+          { tags: { $regex: search, $options: 'i' } },
+          { categories: { $regex: search, $options: 'i' } },
+          { projectType: { $regex: search, $options: 'i' } },
+          { techStack: { $regex: search, $options: 'i' } },
         ],
       }
     : {};
