@@ -29,7 +29,18 @@ export const getAllProjectService = async (query = {}) => {
           { tags: { $regex: search, $options: 'i' } },
           { categories: { $regex: search, $options: 'i' } },
           { projectType: { $regex: search, $options: 'i' } },
-          { techStack: { $regex: search, $options: 'i' } },
+          {
+            techStack: {
+              $elemMatch: {
+                $or: [
+                  { frontend: { $regex: search, $options: 'i' } },
+                  { backend: { $regex: search, $options: 'i' } },
+                  { database: { $regex: search, $options: 'i' } },
+                  { tools: { $regex: search, $options: 'i' } },
+                ],
+              },
+            },
+          },
         ],
       }
     : {};
